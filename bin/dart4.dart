@@ -3,6 +3,7 @@ import 'dart:io';
 enum Status { accepted, rejected }
 
 enum Item {
+  Empty(0, "Empty", 0),
   Mohingha(1, "Mohingha", 3000),
   Noodle(2, "Noodle", 4000),
   Rice(3, "Rice", 5000);
@@ -18,7 +19,7 @@ void main() {
   stdout.write("Welcome to ordering system\n");
   stdout.write("Please enter the following fields to make order\n");
 
-  stdout.write("Code no of each food : 1 > Mohingha , 2 > Noodle, 3 > Rice\n");
+  stdout.write("Code no of each food : 1 = Mohingha , 2 = Noodle, 3 = Rice\n");
   stdout.write("Enter food code no : ");
   final code = int.parse(stdin.readLineSync() ?? '0');
   stdout.write("Enter quantity : ");
@@ -34,6 +35,19 @@ void processOrder({
   required int qty,
   required int distance,
 }) {
+  if (item.code == 0) {
+    print("There is no food match with the code you have entered!");
+    stdout.write("\nPlease try again! (y/n) : ");
+    String value = stdin.readLineSync() ?? "";
+    if (value.trim() != "") {
+      if (value == "y") {
+        main();
+      } else if (value == "n") {
+        return;
+      }
+    }
+    return;
+  }
   print("\nProcessing order for : $qty x ${item.lable}");
 
   var (status, :total, :deliveryFee, :message) = calculateOrder(
@@ -62,8 +76,16 @@ Item checkItem(int code) {
     case 3:
       return Item.Rice;
     default:
-      return Item.Mohingha;
+      return Item.Empty;
   }
+}
+
+String findMessage(int distance) {
+  return switch (distance) {
+    <= 10 => 'Order confirmed!',
+    > 10 => 'Too far away!',
+    _ => "Order failed!",
+  };
 }
 
 bool checkStatus(int distance) {
@@ -80,7 +102,7 @@ bool checkStatus(int distance) {
       Status.rejected,
       total: 0,
       deliveryFee: 0,
-      message: "Too far away!",
+      message: findMessage(distance),
     );
   }
 
@@ -91,6 +113,6 @@ bool checkStatus(int distance) {
     Status.accepted,
     total: subtotal + delivery,
     deliveryFee: delivery,
-    message: "Order confirmed!",
+    message: findMessage(distance),
   );
 }
