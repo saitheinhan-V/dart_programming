@@ -27,7 +27,7 @@ void main() {
 
   // Step 3: AGGREGATOR - Calculate total
   final total = discountedPrices.fold(0.0, (prev, curr) => prev + curr);
-  print('Final Total: \$${total.toStringAsFixed(2)}');
+  print('Final Total: \$${total.toStringAsFixed(1)}');
   // Result: $580.50
 
   // ✓ EXISTENCE CHECK before processing
