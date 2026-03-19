@@ -21,7 +21,7 @@ void main() {
 
   //null assertion !
   String? definitelyHasValue = 'Hello';
-  String unwrapped = definitelyHasValue!; // I'm 100% sure it's not null
+  String unwrapped = definitelyHasValue; // I'm 100% sure it's not null
 
   //List of nullable string
   List<String?> names = ['Sai', null, "Han", null];
@@ -46,7 +46,7 @@ void main() {
 
   List<String> combined = [
     'Required',
-    ...?additionalItems, // Spreads if not null
+    ...additionalItems, // Spreads if not null
     ...?nullItems, // Does nothing because null
   ];
   print('Combined list: $combined\n');

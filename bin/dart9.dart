@@ -45,7 +45,7 @@ mixin Camera on Device {
 }
 
 class Smartphone extends Device with Battery, Camera {
-  Smartphone(String brand) : super(brand);
+  Smartphone(super.brand);
 }
 
 void main() {

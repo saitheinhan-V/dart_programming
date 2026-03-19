@@ -37,10 +37,10 @@ void main() {
   }
 
   // ✓ Now do the full chain
-  final final_total = rawPrices
+  final finalTotal = rawPrices
       .where((price) => price <= 500) // FILTER
       .map((price) => price * 0.9) // TRANSFORMER
       .fold(0.0, (sum, p) => sum + p); // AGGREGATOR
 
-  print('Total: \$${final_total.toStringAsFixed(2)}');
+  print('Total: \$${finalTotal.toStringAsFixed(2)}');
 }
